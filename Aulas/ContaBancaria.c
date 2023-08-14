@@ -19,7 +19,9 @@ void inicia (contabancaria* conta, char* nome, int numero, double saldo) {
 
 void deposito(contabancaria* conta) {
     double valor;
+    printf("\n===============================\n");
     printf("Qual valor deseja depositar?\n");
+    printf("===============================\n");
     scanf("%lf", &valor);
     conta->saldo += valor;
 }
@@ -32,13 +34,19 @@ void deposito (contabancaria* conta, double valor) {
 
 void saque(contabancaria* conta) {
     double valor;
+    printf("\n===============================\n");
     printf("Qual valor deseja sacar?\n");
+    printf("===============================\n");
     scanf("%lf", &valor);
     if(valor > conta->saldo) {
-        printf("\n====== Valor para sacar e maior que o valor na conta! ======\n");
+        printf("\n==========================================\n");
+        printf("Valor para sacar e maior que o valor na conta!");
+        printf("\n==========================================\n");
     } else {
         conta->saldo -= valor;
+        printf("===============================\n");
         printf("\nSaque feito com sucesso!\n");
+        printf("===============================\n");
     }
 }
 
@@ -49,7 +57,7 @@ void saque (contabancaria* conta, double valor) {
 */
 
 void imprime(contabancaria conta) {
-    printf("======= CONTA BANCARIA ======= \n\n");
+    printf("\n======= CONTA BANCARIA =======\n");
     printf("Conta de: %s\n", conta.nome);
     printf("Numero da conta: %d\n", conta.numero);
     printf("Saldo disponivel: %.2f\n", conta.saldo); //.2 formatação apos virgula
@@ -77,7 +85,9 @@ int main() {
             case 1:
                 system("clear");
                 deposito(&minhaConta);
-                printf("\nDeposito feito com sucesso!\n");
+                printf("===============================\n");
+                printf("Deposito feito com sucesso!\n");
+                printf("===============================\n");
                 imprime(minhaConta);
                 break;
 
@@ -89,12 +99,16 @@ int main() {
 
                 case 3:
                 system("clear");
+                printf("\n===============================\n");
                 printf("Saindo da conta...");
+                printf("\n===============================\n");
                 return 0;
                 break;
             
             default:
+                printf("\n===============================\n");
                  printf("Opcao invalida. Tente novamente.\n");
+                 printf("==============================\n");
                 break;
         }
 

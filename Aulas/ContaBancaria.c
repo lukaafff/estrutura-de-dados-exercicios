@@ -23,7 +23,16 @@ void deposito(contabancaria* conta) {
     printf("Qual valor deseja depositar?\n");
     printf("===============================\n");
     scanf("%lf", &valor);
-    conta->saldo += valor;
+    if(valor < 0) {
+        printf("\n==========================================\n");
+        printf("Valor para depositar e invalido!");
+        printf("\n==========================================\n");
+    } else {
+        conta->saldo += valor;
+        printf("===============================\n");
+        printf("\nDeposito feito com sucesso!\n");
+        printf("===============================\n");
+    }
 }
 
 /*
@@ -85,9 +94,6 @@ int main() {
             case 1:
                 system("clear");
                 deposito(&minhaConta);
-                printf("===============================\n");
-                printf("Deposito feito com sucesso!\n");
-                printf("===============================\n");
                 imprime(minhaConta);
                 break;
 

@@ -23,24 +23,10 @@ void deposito(contabancaria* conta) {
     printf("Qual valor deseja depositar?\n");
     printf("===============================\n");
 
-    while (1) {
-        char input[50]; // Adicionamos uma string de entrada auxiliar
-
-        if (fgets(input, sizeof(input), stdin) == NULL) {
-            printf("Erro na leitura da entrada.\n");
-            return;
-        }
-
-        // Verificar se a entrada contém uma vírgula
-        if (strchr(input, ',') != NULL) {
-            printf("\n==========================================\n");
-            printf("Valor para depositar e invalido. Tente novamente: ");
-            printf("\n==========================================\n");
-            continue; // Reiniciar o loop para obter uma entrada válida
-        }
-
-        // Converter a entrada para um valor double
-        if (sscanf(input, "%lf", &valor) != 1 || valor <= 0) {
+     while (1) {
+        if (scanf("%lf", &valor) != 1 || valor <= 0) {
+            // Limpar o buffer de entrada em caso de erro
+            while (getchar() != '\n');
             printf("\n==========================================\n");
             printf("Valor para depositar e invalido. Tente novamente: ");
             printf("\n==========================================\n");
@@ -48,7 +34,7 @@ void deposito(contabancaria* conta) {
             break;
         }
     }
-
+    
     conta->saldo += valor;
     printf("===============================\n");
     printf("\nDeposito feito com sucesso!\n");
@@ -105,7 +91,6 @@ int main() {
     imprime(minhaConta);
 
     int opcao;
-    char input[50];
 
     while (1)
     {
@@ -114,11 +99,6 @@ int main() {
         printf("\n2 - Sacar");
         printf("\n3 - Sair");
         printf("\n===============================\n");
-
-        if (fgets(input, sizeof(input), stdin) == NULL) {
-            printf("Erro na leitura da entrada.\n");
-            return 1;
-        }
 
         if (scanf("%d", &opcao) != 1){
             // Limpar o buffer de entrada em caso de erro

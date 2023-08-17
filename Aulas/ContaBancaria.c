@@ -1,6 +1,6 @@
 #include <stdio.h>
-#include <string.h> //trabalhar com strings
-#include <stdlib.h> // Para usar a função system
+#include <stdlib.h> // Para usar a função system()
+#include <string.h> //trabalhar com string()
 
 typedef struct {
     char nome[50];
@@ -22,17 +22,37 @@ void deposito(contabancaria* conta) {
     printf("\n===============================\n");
     printf("Qual valor deseja depositar?\n");
     printf("===============================\n");
-    scanf("%lf", &valor);
-    if(valor < 0) {
-        printf("\n==========================================\n");
-        printf("Valor para depositar e invalido!");
-        printf("\n==========================================\n");
-    } else {
-        conta->saldo += valor;
-        printf("===============================\n");
-        printf("\nDeposito feito com sucesso!\n");
-        printf("===============================\n");
+
+    while (1) {
+        char input[50]; // Adicionamos uma string de entrada auxiliar
+
+        if (fgets(input, sizeof(input), stdin) == NULL) {
+            printf("Erro na leitura da entrada.\n");
+            return;
+        }
+
+        // Verificar se a entrada contém uma vírgula
+        if (strchr(input, ',') != NULL) {
+            printf("\n==========================================\n");
+            printf("Valor para depositar e invalido. Tente novamente: ");
+            printf("\n==========================================\n");
+            continue; // Reiniciar o loop para obter uma entrada válida
+        }
+
+        // Converter a entrada para um valor double
+        if (sscanf(input, "%lf", &valor) != 1 || valor <= 0) {
+            printf("\n==========================================\n");
+            printf("Valor para depositar e invalido. Tente novamente: ");
+            printf("\n==========================================\n");
+        } else {
+            break;
+        }
     }
+
+    conta->saldo += valor;
+    printf("===============================\n");
+    printf("\nDeposito feito com sucesso!\n");
+    printf("===============================\n");
 }
 
 /*
@@ -46,17 +66,23 @@ void saque(contabancaria* conta) {
     printf("\n===============================\n");
     printf("Qual valor deseja sacar?\n");
     printf("===============================\n");
-    scanf("%lf", &valor);
-    if(valor > conta->saldo) {
-        printf("\n==========================================\n");
-        printf("Valor para sacar e maior que o valor na conta!");
-        printf("\n==========================================\n");
-    } else {
-        conta->saldo -= valor;
-        printf("===============================\n");
-        printf("\nSaque feito com sucesso!\n");
-        printf("===============================\n");
+
+    while (1) {
+        if (scanf("%lf", &valor) != 1 || valor <= 0 || valor > conta->saldo) {
+            // Limpar o buffer de entrada em caso de erro
+            while (getchar() != '\n');
+            printf("\n==========================================\n");
+            printf("Valor para sacar e invalido. Tente novamente: ");
+            printf("\n==========================================\n");
+        } else {
+            break;
+        }
     }
+
+    conta->saldo -= valor;
+    printf("===============================\n");
+    printf("\nSaque feito com sucesso!\n");
+    printf("===============================\n");
 }
 
 /*
@@ -79,6 +105,7 @@ int main() {
     imprime(minhaConta);
 
     int opcao;
+    char input[50];
 
     while (1)
     {
@@ -88,8 +115,20 @@ int main() {
         printf("\n3 - Sair");
         printf("\n===============================\n");
 
-        scanf("%d", &opcao);
-        switch (opcao)
+        if (fgets(input, sizeof(input), stdin) == NULL) {
+            printf("Erro na leitura da entrada.\n");
+            return 1;
+        }
+
+        if (scanf("%d", &opcao) != 1){
+            // Limpar o buffer de entrada em caso de erro
+            while (getchar() != '\n');
+            printf("\n==========================================\n");
+            printf("Opcao invalida. Tente novamente: ");
+            printf("\n==========================================\n");
+        } else {
+
+            switch (opcao)
         {
             case 1:
                 system("clear");
@@ -119,5 +158,7 @@ int main() {
         }
 
     }
+        }
+        
     return 0;
 }

@@ -23,8 +23,8 @@ void deposito(contabancaria* conta) {
     printf("Qual valor deseja depositar?\n");
     printf("===============================\n");
 
-     while (1) {
-        if (scanf("%lf", &valor) != 1 || valor <= 0) {
+    while (1) {
+        if (scanf("%lf", &valor) != 1 || valor <= 0 ) {
             // Limpar o buffer de entrada em caso de erro
             while (getchar() != '\n');
             printf("\n==========================================\n");
@@ -34,11 +34,6 @@ void deposito(contabancaria* conta) {
             break;
         }
     }
-    
-    conta->saldo += valor;
-    printf("===============================\n");
-    printf("\nDeposito feito com sucesso!\n");
-    printf("===============================\n");
 }
 
 /*
@@ -60,6 +55,7 @@ void saque(contabancaria* conta) {
             printf("\n==========================================\n");
             printf("Valor para sacar e invalido. Tente novamente: ");
             printf("\n==========================================\n");
+            
         } else {
             break;
         }

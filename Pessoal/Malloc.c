@@ -26,7 +26,7 @@ int main() {
     while(1) {
         char nome[50];
         printf("Digite um nome (ou 'sair' para encerrar o programa): ");
-        scanf("%s", nome);
+        gets(nome);
 
         //se a string digitada for igual a "sair" o programa para
         if(strcmp(nome, "sair") == 0) {
@@ -36,9 +36,8 @@ int main() {
         //verifica se tem espaço sem precisar realocar memoria
         if(tamanhoAtual >= capacidade) {
         //dobramos o valor da capacidade para poder adicionar mais nomes no futuro sem precisar realocar memoria imediatamente
-        capacidade *= 2;
-
         printf("\nDobrando o tamanho da capacidade");
+        capacidade *= 2;
 
         //realloc é usado mais redimensionar dinamicamente o array listaNomes para uma nova capacidade
         listaNomes = (char **)realloc(listaNomes, capacidade * sizeof(char *));
@@ -62,7 +61,7 @@ int main() {
     //imprime lista de nomes
     printf("\nLista de nomes:\n");
     for (int i = 0; i < tamanhoAtual; i++) {
-        printf("%s\n", listaNomes[i]);
+        printf("| %s\n", listaNomes[i]);
         free(listaNomes[i]);
     }
 

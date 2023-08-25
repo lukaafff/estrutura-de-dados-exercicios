@@ -12,7 +12,7 @@ int main () {
 
     //simular vendar (valores aleatorios)
     for (int i = 0; i < diasMes; i++ ) {
-        vendasDiarias[i] = rand() % 2000; //entre 0 e 99
+        vendasDiarias[i] = rand() % 100; //entre 0 e 99
     }
 
     //soma das vendas
